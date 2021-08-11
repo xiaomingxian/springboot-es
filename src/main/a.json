@@ -1,0 +1,45 @@
+{
+  "content": [
+    {
+      "id": "2",
+      "type": null,
+      "price": null,
+      "name": null
+    },
+    {
+      "id": "1",
+      "type": "t1",
+      "price": "11",
+      "name": "name1"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "offset": 0,
+    "pageSize": 2,
+    "pageNumber": 0,
+    "paged": true,
+    "unpaged": false
+  },
+  "facets": [],
+  "aggregations": null,
+  "scrollId": null,
+  "maxScore": 1.0,
+  "totalElements": 2,
+  "totalPages": 1,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "numberOfElements": 2,
+  "first": true,
+  "size": 2,
+  "number": 0,
+  "last": true,
+  "empty": false
+}

@@ -1,0 +1,9 @@
+server:
+  port: 8888
+spring:
+  elasticsearch:
+    rest:
+      uris:
+        - http://es-data01.edianzuno.cn:9999
+        - http://es-data02.edianzuno.cn:9999
+        - http://es-data03.edianzuno.cn:9999
