@@ -57,8 +57,7 @@ public class SpringBootApplicationTests {
     @Test
     public void Test1(){
 
-
-        for (int i = 1; i <100 ; i++) {
+int i=21212;
             BookBean bookBean = new BookBean();
             bookBean.setId(i+"");
             bookBean.setName("name"+UUID.randomUUID().toString().replaceAll("-",""));
@@ -67,7 +66,6 @@ public class SpringBootApplicationTests {
             BookBean save = bookRepository.save(bookBean);
             log.info("save bean:{}",save);
 
-        }
     }
 
     @Test

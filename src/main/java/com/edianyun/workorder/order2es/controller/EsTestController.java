@@ -29,28 +29,6 @@ public class EsTestController {
     private RestHighLevelClient client;
 
     private final RequestOptions options = RequestOptions.DEFAULT;
-    /**
-     * 查询总数
-     */
-    @RequestMapping("count")
-    public Long count (String indexName){
-        // 指定创建时间
-        BoolQueryBuilder queryBuilder = QueryBuilders.boolQuery();
-        queryBuilder.must(QueryBuilders.termQuery("task_type", "startEvent"));
-
-        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        sourceBuilder.query(queryBuilder);
-
-        CountRequest countRequest = new CountRequest(indexName);
-        countRequest.source(sourceBuilder);
-        try {
-            CountResponse countResponse = client.count(countRequest, options);
-            return countResponse.getCount();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0L;
-    }
 
 
     @GetMapping("insert")

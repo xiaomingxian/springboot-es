@@ -14,8 +14,6 @@ public   interface BookRepository extends ElasticsearchRepository<BookBean, Stri
 
     Page<BookBean> findByName(String title, Pageable pageable);
 
-    @Query("select * from BookBean where name like '%1%'")
-    List<BookBean> findByNameLikes();
 
     List<BookBean> findByNameLike(String name);
 }

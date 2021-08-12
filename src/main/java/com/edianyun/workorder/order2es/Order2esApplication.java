@@ -15,7 +15,7 @@ public class Order2esApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(Order2esApplication.class, args);
-		log.info(" 应用启动完成 ");
+		log.info("========================= 应用启动完成 =========================");
 	}
 
 
