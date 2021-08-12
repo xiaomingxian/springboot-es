@@ -4,6 +4,6 @@ spring:
   elasticsearch:
     rest:
       uris:
-        - http://es-data01.edianzuno.cn:9999
-        - http://es-data02.edianzuno.cn:9999
-        - http://es-data03.edianzuno.cn:9999
+        - http://es-test-data01.edianzuno.cn:9999
+        - http://es-test-data02.edianzuno.cn:9999
+        - http://es-test-data03.edianzuno.cn:9999

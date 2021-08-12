@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 @Data
-@Document(indexName = "cia-logcenter", type = "doc")
+@Document(indexName = "order-var", type = "doc")
 public class BookBean {
     String id;
     String type ;

@@ -3,11 +3,18 @@ package com.edianyun.workorder.order2es.test;
 import com.edianyun.workorder.order2es.bean.BookBean;
 import com.edianyun.workorder.order2es.repository.BookRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchRequestBuilder;
+import org.elasticsearch.action.search.SearchResponse;
+import org.elasticsearch.client.Client;
+import org.elasticsearch.client.RestClient;
+import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.indices.IndexTemplateMetaData;
+import org.elasticsearch.common.Strings;
 import org.elasticsearch.common.unit.Fuzziness;
-import org.elasticsearch.index.query.MultiMatchQueryBuilder;
-import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.*;
 import org.elasticsearch.index.search.MatchQuery;
+import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortBuilder;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
@@ -25,6 +32,7 @@ import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilde
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,7 +48,11 @@ public class SpringBootApplicationTests {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private RestHighLevelClient restHighLevelClient;
 
+    @Autowired
+    private RestClient restClient;
 
     @Test
     public void Test1(){
@@ -59,11 +71,36 @@ public class SpringBootApplicationTests {
     }
 
     @Test
-    public  void  query(){
+    public  void  query() {
 
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        sourceBuilder.from(0);
+        sourceBuilder.size(10);
+        sourceBuilder.fetchSource(new String[]{"*"}, Strings.EMPTY_ARRAY);
 
-        Iterable<BookBean> all = bookRepository.findAll();
-        System.out.println("all:::::"+all);
+        MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("name", "rabbit");
+        MultiMatchQueryBuilder multiMatchQueryBuilder = QueryBuilders.multiMatchQuery("YunZhiHui", "address", "company");
+        TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("interest", "game steak");
+        RangeQueryBuilder rangeQueryBuilder = QueryBuilders.rangeQuery("birthday");
+        rangeQueryBuilder.gte("2018-01-26");
+        rangeQueryBuilder.lte("2019-01-26");
+
+        BoolQueryBuilder boolBuilder = QueryBuilders.boolQuery();
+        boolBuilder.must(matchQueryBuilder);
+        boolBuilder.must(termQueryBuilder);
+        boolBuilder.must(rangeQueryBuilder);
+        boolBuilder.should(multiMatchQueryBuilder);
+
+        sourceBuilder.query(boolBuilder);
+        SearchRequest searchRequest = new SearchRequest("index1");
+        searchRequest.types("doc");
+        searchRequest.source(sourceBuilder);
+        try {
+            SearchResponse response = restHighLevelClient.search(searchRequest);
+            System.out.println(response);
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
     }
-
 }
